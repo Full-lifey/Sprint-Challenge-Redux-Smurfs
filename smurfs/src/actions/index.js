@@ -45,3 +45,19 @@ export const addSmurf = smurf => dispatch => {
       dispatch({ type: ADD_SMURF_FAILURE, payload: err.response });
     });
 };
+
+export const DELETING_SMURF = 'DELETING_SMURF';
+export const DEL_SMURF_SUCCESS = 'DEL_SMURF_SUCCESS';
+export const DEL_SMURF_FAILURE = 'DEL_SMURF_FAILURE';
+
+export const deleteSmurf = id => dispatch => {
+  dispatch({ type: DELETING_SMURF });
+  axios
+    .delete(`http://localhost:3333/smurfs/${id}`)
+    .then(res => {
+      dispatch({ type: DEL_SMURF_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: DEL_SMURF_FAILURE, payload: err.response });
+    });
+};

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSmurfs, addSmurf } from '../actions';
+import { getSmurfs, addSmurf, deleteSmurf } from '../actions';
 
 import './App.css';
 /*
@@ -34,6 +34,21 @@ class App extends Component {
   addSmurf = e => {
     e.preventDefault();
     this.props.addSmurf(this.state.newSmurf);
+    this.setState({
+      newSmurf: {
+        name: '',
+        age: '',
+        height: ''
+      }
+    });
+  };
+  editSmurf = (e, smurf) => {
+    e.preventDefault();
+    const id = smurf.id;
+  };
+  deleteSmurf = (e, id) => {
+    e.preventDefault();
+    this.props.deleteSmurf(id);
   };
   render() {
     return (
@@ -45,6 +60,8 @@ class App extends Component {
               <h2>{smurf.name}</h2>
               <p>{smurf.age}</p>
               <p>{smurf.height}</p>
+              <button>Edit</button>
+              <button onClick={e => this.deleteSmurf(e, smurf.id)}>X</button>
             </div>
           );
         })}
@@ -87,5 +104,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addSmurf }
+  { getSmurfs, addSmurf, deleteSmurf }
 )(App);
