@@ -22,13 +22,53 @@ class App extends Component {
   componentDidMount() {
     this.props.getSmurfs();
   }
+  changeHandler = e => {
+    e.preventDefault();
+    this.setState({
+      newSmurf: {
+        ...this.state.newSmurf,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
   render() {
     return (
       <div className='App'>
         <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+        {this.props.smurfs.map(smurf => {
+          return (
+            <div className='smurf-item'>
+              <h2>{smurf.name}</h2>
+              <p>{smurf.age}</p>
+              <p>{smurf.height}</p>
+            </div>
+          );
+        })}
+        <div className='smurf-form'>
+          <form>
+            <input
+              type='text'
+              name='name'
+              value={this.state.newSmurf.name}
+              onChange={this.changeHandler}
+              placeholder='Name'
+            />
+            <input
+              type='number'
+              name='age'
+              value={this.state.newSmurf.age}
+              onChange={this.changeHandler}
+              placeholder='Age'
+            />
+            <input
+              type='text'
+              name='height'
+              value={this.state.newSmurf.height}
+              onChange={this.changeHandler}
+              placeholder='Height'
+            />
+          </form>
+        </div>
       </div>
     );
   }
