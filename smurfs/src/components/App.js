@@ -16,7 +16,8 @@ class App extends Component {
       name: '',
       age: '',
       height: ''
-    }
+    },
+    editingSmurf: false
   };
 
   componentDidMount() {
@@ -45,6 +46,14 @@ class App extends Component {
   editSmurf = (e, smurf) => {
     e.preventDefault();
     const id = smurf.id;
+    this.setState({
+      newSmurf: {
+        name: smurf.name,
+        age: smurf.age,
+        height: smurf.height
+      },
+      editingSmurf: true
+    });
   };
   deleteSmurf = (e, id) => {
     e.preventDefault();
@@ -60,7 +69,7 @@ class App extends Component {
               <h2>{smurf.name}</h2>
               <p>{smurf.age}</p>
               <p>{smurf.height}</p>
-              <button>Edit</button>
+              <button onClick={e => this.editSmurf(e, smurf)}>Edit</button>
               <button onClick={e => this.deleteSmurf(e, smurf.id)}>X</button>
             </div>
           );
@@ -88,8 +97,12 @@ class App extends Component {
               onChange={this.changeHandler}
               placeholder='Height'
             />
-            <button>Add Smurf</button>
           </form>
+          {this.state.editingSmurf ? (
+            <button>Edit Smurf</button>
+          ) : (
+            <button onClick={this.addSmurf}>Add Smurf</button>
+          )}
         </div>
       </div>
     );
