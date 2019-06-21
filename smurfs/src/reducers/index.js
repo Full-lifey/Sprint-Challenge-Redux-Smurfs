@@ -4,7 +4,10 @@
 import {
   FETCHING_SMURFS,
   FETCHING_SMURFS_SUCCESS,
-  FETCHING_SMURFS_FAILURE
+  FETCHING_SMURFS_FAILURE,
+  ADDING_SMURF,
+  ADD_SMURF_SUCCESS,
+  ADD_SMURF_FAILURE
 } from '../actions';
 
 //  Your initial/default state for this project could *Although does not have to* look a lot like this
@@ -44,6 +47,25 @@ export default function(state = initialState, action) {
       return {
         ...state,
         fetchingSmurfs: false,
+        error: action.payload
+      };
+    case ADDING_SMURF:
+      return {
+        ...state,
+        error: '',
+        addingSmurf: true
+      };
+    case ADD_SMURF_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        addingSmurf: false,
+        smurfs: action.payload
+      };
+    case ADD_SMURF_FAILURE:
+      return {
+        ...state,
+        addingSmurf: false,
         error: action.payload
       };
     default:

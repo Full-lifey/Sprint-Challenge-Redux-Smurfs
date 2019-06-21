@@ -38,6 +38,10 @@ export const addSmurf = smurf => dispatch => {
   dispatch({ type: ADDING_SMURF });
   axios
     .post('http://localhost:3333/smurfs', smurf)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => {
+      dispatch({ type: ADD_SMURF_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_SMURF_FAILURE, payload: err.response });
+    });
 };
