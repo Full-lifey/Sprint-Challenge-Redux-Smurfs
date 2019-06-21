@@ -22,9 +22,17 @@ In this challenge, you are to build the Smurfs village once again, only this tim
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
-- [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
-- [ ] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+- [x] In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+
+- First, I will start with the store. It is essentially the central repository for state within out entire application. This single central location prevents a lot of state management issues by being the single place that all state data is pulled from and updated to. Actions are things the user does which can cause state changes within the application. Reducers take those actions, reducing the current state object and the action object forwarded to it by the action creator and reduce it into one state object which then updates the store.
+
+- [x] What is the difference between Application state and Component state? When would be a good time to use one over the other?
+
+- Application state would be the state object in the store. It is the central, single source of truth for our entire application. Component state is state that resides only on a class component within our application. Component state is best used for smaller applications or just to pass down to all subcomponents of itself. Application state is best used as state that will need to be passed around all over our application.
+
+- [x] Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+
+- Redux-thunk is asychronus code that runs within our redux application. It changes our action-creators by adding various states to our application depending on where our thunk function is in any given moment.
 
 ## Project Set Up
 
