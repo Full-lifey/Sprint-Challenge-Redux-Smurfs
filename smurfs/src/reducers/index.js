@@ -10,7 +10,10 @@ import {
   ADD_SMURF_FAILURE,
   DELETING_SMURF,
   DEL_SMURF_SUCCESS,
-  DEL_SMURF_FAILURE
+  DEL_SMURF_FAILURE,
+  EDITING_SMURF,
+  EDIT_SMURF_SUCCESS,
+  EDIT_SMURF_FAILURE
 } from '../actions';
 
 //  Your initial/default state for this project could *Although does not have to* look a lot like this
@@ -88,6 +91,25 @@ export default function(state = initialState, action) {
       return {
         ...state,
         deletingSmurf: false,
+        error: action.payload
+      };
+    case EDITING_SMURF:
+      return {
+        ...state,
+        updatingSmurf: true,
+        error: ''
+      };
+    case EDIT_SMURF_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        updatingSmurf: false,
+        smurfs: action.payload
+      };
+    case EDIT_SMURF_FAILURE:
+      return {
+        ...state,
+        updatingSmurf: false,
         error: action.payload
       };
     default:

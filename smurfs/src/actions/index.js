@@ -61,3 +61,19 @@ export const deleteSmurf = id => dispatch => {
       dispatch({ type: DEL_SMURF_FAILURE, payload: err.response });
     });
 };
+
+export const EDITING_SMURF = 'EDITING_SMURF';
+export const EDIT_SMURF_SUCCESS = 'EDIT_SMURF_SUCCESS';
+export const EDIT_SMURF_FAILURE = 'EDIT_SMURF_FAILURE';
+
+export const editSmurf = smurf => dispatch => {
+  dispatch({ type: EDITING_SMURF });
+  axios
+    .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
+    .then(res => {
+      dispatch({ type: EDIT_SMURF_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_SMURF_FAILURE, payload: err.response });
+    });
+};

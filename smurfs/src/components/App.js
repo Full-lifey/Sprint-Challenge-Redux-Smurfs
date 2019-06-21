@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSmurfs, addSmurf, deleteSmurf } from '../actions';
+import { getSmurfs, addSmurf, deleteSmurf, editSmurf } from '../actions';
 
 import './App.css';
 /*
@@ -15,7 +15,8 @@ class App extends Component {
     newSmurf: {
       name: '',
       age: '',
-      height: ''
+      height: '',
+      id: ''
     },
     editingSmurf: false
   };
@@ -39,21 +40,25 @@ class App extends Component {
       newSmurf: {
         name: '',
         age: '',
-        height: ''
+        height: '',
+        id: ''
       }
     });
   };
   editSmurf = (e, smurf) => {
     e.preventDefault();
-    const id = smurf.id;
     this.setState({
       newSmurf: {
         name: smurf.name,
         age: smurf.age,
-        height: smurf.height
+        height: smurf.height,
+        id: smurf.id
       },
       editingSmurf: true
     });
+  };
+  submitEditedSmurf = (e, smurf) => {
+    e.preventDefault();
   };
   deleteSmurf = (e, id) => {
     e.preventDefault();
@@ -99,7 +104,22 @@ class App extends Component {
             />
           </form>
           {this.state.editingSmurf ? (
-            <button>Edit Smurf</button>
+            <button
+              onClick={e => {
+                this.props.editSmurf(this.state.newSmurf);
+                this.setState({
+                  newSmurf: {
+                    name: '',
+                    age: '',
+                    height: '',
+                    id: ''
+                  },
+                  editingSmurf: false
+                });
+              }}
+            >
+              Edit Smurf
+            </button>
           ) : (
             <button onClick={this.addSmurf}>Add Smurf</button>
           )}
@@ -117,5 +137,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getSmurfs, addSmurf, deleteSmurf }
+  { getSmurfs, addSmurf, deleteSmurf, editSmurf }
 )(App);
